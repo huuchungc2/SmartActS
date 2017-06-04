@@ -17,6 +17,7 @@ namespace SmartActS.Controllers
         // GET: Categories
         public ActionResult Index()
         {
+            
             return View(db.Categories.ToList());
         }
 

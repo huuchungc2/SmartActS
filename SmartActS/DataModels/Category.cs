@@ -1,3 +1,4 @@
+using System.Web.Mvc;
 namespace SmartActS.DataModels
 {
     using System;
@@ -20,6 +21,8 @@ namespace SmartActS.DataModels
 
         public int? ParentId { get; set; }
         [NotMapped]
-        public System.Web.Mvc.SelectList CategoryList { get; set; }
+       // public System.Web.Mvc.SelectList CategoryList { get; set; 
+       public List<SelectListItem> CategoryList { get; set; }
+
     }
 }
