@@ -9,6 +9,7 @@ namespace SmartActS.DataModels
     [Table("Category")]
     public partial class Category
     {
+       
         public int CategoryId { get; set; }
 
         [StringLength(50)]
