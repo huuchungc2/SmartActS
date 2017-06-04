@@ -1,0 +1,82 @@
+﻿@model IEnumerable<SmartActS.DataModels.Response>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_Response.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ResponseTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SupplyId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResponseTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriceSuggest)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FileAttachId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.categoryId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResponseTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SupplyId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResponseTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceSuggest)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FileAttachId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.categoryId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ResponseId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ResponseId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ResponseId })
+        </td>
+    </tr>
+}
+
+</table>

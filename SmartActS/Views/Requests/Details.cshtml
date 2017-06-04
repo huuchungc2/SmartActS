@@ -1,0 +1,155 @@
+﻿@model SmartActS.DataModels.Request
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout_Request.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Request</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DurationExpired)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DurationExpired)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FromBudget)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FromBudget)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ToBudget)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToBudget)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequireResponse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequireResponse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShippingAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShippingAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocationSupplyId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocationSupplyId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BestTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BestTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BestSupply)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BestSupply)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BestPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BestPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FileAttrachId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FileAttrachId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RequestId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
