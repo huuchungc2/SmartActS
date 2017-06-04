@@ -18,5 +18,7 @@ namespace SmartActS.DataModels
         public string CategoryName { get; set; }
 
         public int? ParentId { get; set; }
+        [NotMapped]
+        public System.Web.Mvc.SelectList CategoryList { get; set; }
     }
 }

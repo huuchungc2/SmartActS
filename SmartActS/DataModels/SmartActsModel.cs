@@ -8,7 +8,7 @@ namespace SmartActS.DataModels
     public partial class SmartActSModel : DbContext
     {
         public SmartActSModel()
-            : base("name=SmartModel")
+            : base("name=DefaultConnection")
         {
         }
 

@@ -18,10 +18,12 @@ namespace SmartActS.Controllers
         // GET: Category
         public ActionResult Index()
         {
-            ViewData.Model = _db.Categories.ToList();
+            //ViewData.Model = _db.Categories.
+
+
             Category cat = new Category();
-           // cat.CategoryList = new SelectList(_db.Categories.ToList(), "CategoryId", "CategoryName");
-            return View(cat);
+            cat.CategoryList = new SelectList(_db.Categories.ToList(), "CategoryId", "CategoryName");
+            return View();
             
         }
 
