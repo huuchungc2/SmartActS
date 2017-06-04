@@ -10,11 +10,11 @@ namespace SmartActS.Controllers
 {
     public class RequestController : Controller
     {
-        SmartActS.DataModels.SmartActSEntities _db;
+        SmartActS.DataModels.SmartActSModel _db;
 
         public RequestController()
         {
-            _db = new DataModels.SmartActSEntities();
+            _db = new DataModels.SmartActSModel();
         }
         // GET: Request
         public ActionResult Index()
