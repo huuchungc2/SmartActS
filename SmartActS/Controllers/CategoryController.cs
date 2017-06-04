@@ -9,17 +9,19 @@ namespace SmartActS.Controllers
 {
     public class CategoryController : Controller
     {
-        SmartActS.DataModels.SmartActSEntities _db;
+        SmartActS.DataModels.SmartActSModel _db;
 
         public CategoryController()
         {
-            _db = new DataModels.SmartActSEntities();
+            _db = new DataModels.SmartActSModel();
         }
         // GET: Category
         public ActionResult Index()
         {
             ViewData.Model = _db.Categories.ToList();
-            return View();
+            Category cat = new Category();
+           // cat.CategoryList = new SelectList(_db.Categories.ToList(), "CategoryId", "CategoryName");
+            return View(cat);
             
         }
 

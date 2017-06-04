@@ -206,60 +206,19 @@
     <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="Controllers\ResponseController.cs" />
     <Compile Include="Controllers\SupplyController.cs" />
-    <Compile Include="DataModels\Category.cs">
-      <DependentUpon>SmartActsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\Customer.cs">
-      <DependentUpon>SmartActsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\FileAttacth.cs">
-      <DependentUpon>SmartActsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\Location.cs">
-      <DependentUpon>SmartActsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\Rank.cs">
-      <DependentUpon>SmartActsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\Request.cs">
-      <DependentUpon>SmartActsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\Response.cs">
-      <DependentUpon>SmartActsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\Response1.cs">
-      <DependentUpon>SmartActsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\Role.cs">
-      <DependentUpon>SmartActsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SmartActsModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SmartActsModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SmartActsModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SmartActsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\SmartActsModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SmartActsModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\Supply.cs">
-      <DependentUpon>SmartActsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\User.cs">
-      <DependentUpon>SmartActsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\UserClaim.cs">
-      <DependentUpon>SmartActsModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModels\UserLogin.cs">
-      <DependentUpon>SmartActsModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="DataModels\Category.cs" />
+    <Compile Include="DataModels\Customer.cs" />
+    <Compile Include="DataModels\FileAttacth.cs" />
+    <Compile Include="DataModels\Location.cs" />
+    <Compile Include="DataModels\Rank.cs" />
+    <Compile Include="DataModels\Request.cs" />
+    <Compile Include="DataModels\Response.cs" />
+    <Compile Include="DataModels\Role.cs" />
+    <Compile Include="DataModels\SmartActSModel.cs" />
+    <Compile Include="DataModels\Supply.cs" />
+    <Compile Include="DataModels\User.cs" />
+    <Compile Include="DataModels\UserClaim.cs" />
+    <Compile Include="DataModels\UserLogin.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -281,17 +240,6 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="DataModels\SmartActsModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SmartActsModel.edmx</DependentUpon>
-      <LastGenOutput>SmartActsModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataModels\SmartActsModel.edmx.sql" />
-    <Content Include="DataModels\SmartActsModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SmartActsModel.edmx</DependentUpon>
-      <LastGenOutput>SmartActsModel.cs</LastGenOutput>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -300,13 +248,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="DataModels\SmartActsModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SmartActsModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="DataModels\SmartActsModel.edmx.diagram">
-      <DependentUpon>SmartActsModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
