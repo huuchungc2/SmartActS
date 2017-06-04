@@ -11,7 +11,7 @@
         <EntityTypeShape EntityType="SmartActSModel.Location" Width="1.5" PointX="11.25" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SmartActSModel.Rank" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SmartActSModel.Request" Width="1.5" PointX="7.875" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SmartActSModel.Response" Width="3.125" PointX="10.875" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmartActSModel.Response" Width="3.125" PointX="11.125" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="SmartActSModel.Role" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SmartActSModel.User" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SmartActSModel.UserClaim" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
@@ -23,6 +23,7 @@
         <AssociationConnector Association="SmartActSModel.LocationRequest" />
         <AssociationConnector Association="SmartActSModel.RequestCategory" />
         <EntityTypeShape EntityType="SmartActSModel.Supply" Width="1.5" PointX="4.375" PointY="8.75" />
+        <EntityTypeShape EntityType="SmartActSModel.Response1" Width="1.5" PointX="6.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

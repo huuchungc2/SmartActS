@@ -227,6 +227,9 @@
     <Compile Include="DataModels\Response.cs">
       <DependentUpon>SmartActsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataModels\Response1.cs">
+      <DependentUpon>SmartActsModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataModels\Role.cs">
       <DependentUpon>SmartActsModel.tt</DependentUpon>
     </Compile>

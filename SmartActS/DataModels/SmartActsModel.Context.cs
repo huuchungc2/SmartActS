@@ -37,5 +37,6 @@ namespace SmartActS.DataModels
         public virtual DbSet<UserClaim> UserClaims { get; set; }
         public virtual DbSet<UserLogin> UserLogins { get; set; }
         public virtual DbSet<Supply> Supplies { get; set; }
+        public virtual DbSet<Response1> Response1 { get; set; }
     }
 }

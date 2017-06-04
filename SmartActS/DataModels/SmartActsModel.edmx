@@ -4,301 +4,92 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SmartActSModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="SmartActSModelStoreContainer">
-    <EntitySet Name="Categories" EntityType="SmartActSModel.Store.Categories" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Customers" EntityType="SmartActSModel.Store.Customers" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="FileAttacths" EntityType="SmartActSModel.Store.FileAttacths" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Locations" EntityType="SmartActSModel.Store.Locations" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Ranks" EntityType="SmartActSModel.Store.Ranks" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Requests" EntityType="SmartActSModel.Store.Requests" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Responses" EntityType="SmartActSModel.Store.Responses" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Roles" EntityType="SmartActSModel.Store.Roles" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Users" EntityType="SmartActSModel.Store.Users" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UserClaims" EntityType="SmartActSModel.Store.UserClaims" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UserLogins" EntityType="SmartActSModel.Store.UserLogins" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Supplies" EntityType="SmartActSModel.Store.Supplies" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UserRole" EntityType="SmartActSModel.Store.UserRole" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_dbo_UserClaims_dbo_Users_UserId" Association="SmartActSModel.Store.FK_dbo_UserClaims_dbo_Users_UserId">
-      <End Role="User" EntitySet="Users" />
-      <End Role="UserClaims" EntitySet="UserClaims" />
-    </AssociationSet>
-    <AssociationSet Name="FK_dbo_UserLogins_dbo_Users_UserId" Association="SmartActSModel.Store.FK_dbo_UserLogins_dbo_Users_UserId">
-      <End Role="User" EntitySet="Users" />
-      <End Role="UserLogin" EntitySet="UserLogins" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserRole_Roles" Association="SmartActSModel.Store.FK_UserRole_Roles">
-      <End Role="Roles" EntitySet="Roles" />
-      <End Role="UserRole" EntitySet="UserRole" />
-    </AssociationSet>
-    <AssociationSet Name="FK_UserRole_User" Association="SmartActSModel.Store.FK_UserRole_User">
-      <End Role="User" EntitySet="Users" />
-      <End Role="UserRole" EntitySet="UserRole" />
-    </AssociationSet>
-    <AssociationSet Name="RequestResponse" Association="SmartActSModel.Store.RequestResponse">
-      <End Role="Request" EntitySet="Requests" />
-      <End Role="Response" EntitySet="Responses" />
-    </AssociationSet>
-    <AssociationSet Name="LocationRequest" Association="SmartActSModel.Store.LocationRequest">
-      <End Role="Location" EntitySet="Locations" />
-      <End Role="Request" EntitySet="Requests" />
-    </AssociationSet>
-    <AssociationSet Name="RequestCategory" Association="SmartActSModel.Store.RequestCategory">
-      <End Role="Request" EntitySet="Requests" />
-      <End Role="Category" EntitySet="Categories" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="Categories">
-    <Key>
-      <PropertyRef Name="CategoryId" />
-    </Key>
-    <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CategoryCode" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="CategoryName" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="ParentId" Type="int" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Customers">
-    <Key>
-      <PropertyRef Name="CustomerId" />
-    </Key>
-    <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CustomerCode" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="CustomerName" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="Email" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="MobiPhone" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="Address" Type="nvarchar" Nullable="true" MaxLength="1000" />
-    <Property Name="LngTitude" Type="float" Nullable="true" />
-    <Property Name="LatTitude" Type="float" Nullable="true" />
-    <Property Name="LocationId" Type="int" Nullable="true" />
-    <Property Name="IsStatus" Type="int" Nullable="true" />
-    <Property Name="UserId" Type="nvarchar" Nullable="true" MaxLength="128" />
-  </EntityType>
-  <EntityType Name="FileAttacths">
-    <Key>
-      <PropertyRef Name="FileAttachId" />
-    </Key>
-    <Property Name="FileAttachId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FileName" Type="nvarchar" Nullable="true" MaxLength="500" />
-    <Property Name="FilePath" Type="nvarchar" Nullable="true" MaxLength="1000" />
-    <Property Name="FileSize" Type="float" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Locations">
-    <Key>
-      <PropertyRef Name="LocationId" />
-    </Key>
-    <Property Name="LocationId" Type="int" Nullable="false" />
-    <Property Name="LocationCode" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="LocationName" Type="nvarchar" Nullable="true" MaxLength="100" />
-    <Property Name="PrarentId" Type="int" Nullable="true" />
-    <Property Name="LngTitude" Type="float" Nullable="true" />
-    <Property Name="LatTitude" Type="float" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Ranks">
-    <Key>
-      <PropertyRef Name="RankId" />
-    </Key>
-    <Property Name="RankId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="RankCode" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="RankName" Type="nvarchar" Nullable="true" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="Requests">
-    <Key>
-      <PropertyRef Name="RequestId" />
-    </Key>
-    <Property Name="RequestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="RequestCode" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="CategoryId" Type="int" Nullable="false" />
-    <Property Name="CustomerId" Type="int" Nullable="false" />
-    <Property Name="Status" Type="int" Nullable="true" />
-    <Property Name="CreatedDate" Type="datetime" Nullable="true" />
-    <Property Name="DurationExpired" Type="int" Nullable="true" />
-    <Property Name="FromBudget" Type="decimal" Nullable="true" Precision="19" Scale="4" />
-    <Property Name="ToBudget" Type="decimal" Nullable="true" Precision="19" Scale="4" />
-    <Property Name="RequireResponse" Type="int" Nullable="true" />
-    <Property Name="ShippingAddress" Type="nvarchar" Nullable="true" MaxLength="1000" />
-    <Property Name="LocationSupplyId" Type="int" Nullable="true" />
-    <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="1000" />
-    <Property Name="BestTime" Type="bit" Nullable="true" />
-    <Property Name="BestSupply" Type="bit" Nullable="true" />
-    <Property Name="BestPrice" Type="bit" Nullable="true" />
-    <Property Name="RequestTitle" Type="nvarchar" Nullable="true" MaxLength="100" />
-    <Property Name="FileAttrachId" Type="int" Nullable="true" />
-  </EntityType>
-  <EntityType Name="Responses">
-    <Key>
-      <PropertyRef Name="ResponseId" />
-    </Key>
-    <Property Name="ResponseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ResponseTitle" Type="nvarchar" Nullable="true" MaxLength="100" />
-    <Property Name="RequestId" Type="int" Nullable="false" />
-    <Property Name="SupplyId" Type="int" Nullable="false" />
-    <Property Name="ResponseTime" Type="datetime" Nullable="true" />
-    <Property Name="Status" Type="int" Nullable="true" />
-    <Property Name="PriceSuggest" Type="decimal" Nullable="true" Precision="19" Scale="4" />
-    <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="1000" />
-    <Property Name="FileAttachId" Type="int" Nullable="true" />
-    <Property Name="categoryId" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Roles">
-    <Key>
-      <PropertyRef Name="RoleId" />
-    </Key>
-    <Property Name="RoleId" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="256" />
-  </EntityType>
-  <EntityType Name="Users">
-    <Key>
-      <PropertyRef Name="UserId" />
-    </Key>
-    <Property Name="UserId" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="256" />
-    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
-    <Property Name="PasswordHash" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="SecurityStamp" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
-    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
-    <Property Name="LockoutEndDateUtc" Type="datetime" Nullable="true" />
-    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
-    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
-    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="256" />
-  </EntityType>
-  <EntityType Name="UserClaims">
-    <Key>
-      <PropertyRef Name="UserClaimId" />
-    </Key>
-    <Property Name="UserClaimId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserId" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="ClaimType" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="ClaimValue" Type="nvarchar(max)" Nullable="true" />
-  </EntityType>
-  <EntityType Name="UserLogins">
-    <Key>
-      <PropertyRef Name="LoginProvider" />
-      <PropertyRef Name="ProviderKey" />
-      <PropertyRef Name="UserId" />
-    </Key>
-    <Property Name="LoginProvider" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="ProviderKey" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="UserId" Type="nvarchar" Nullable="false" MaxLength="128" />
-  </EntityType>
-  <EntityType Name="Supplies">
-    <Key>
-      <PropertyRef Name="SupplyId" />
-    </Key>
-    <Property Name="SupplyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="SupplyCode" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="SupplyName" Type="nvarchar" Nullable="true" MaxLength="100" />
-    <Property Name="LocationId" Type="int" Nullable="true" />
-    <Property Name="LngTitude" Type="float" Nullable="true" />
-    <Property Name="Latitude" Type="float" Nullable="true" />
-    <Property Name="CategoryId" Type="int" Nullable="true" />
-    <Property Name="Address" Type="nvarchar" Nullable="true" MaxLength="1000" />
-    <Property Name="Email" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="MobiPhone" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="Phone" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="Website" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="RankId" Type="int" Nullable="true" />
-    <Property Name="IsStatus" Type="int" Nullable="true" />
-    <Property Name="UserId" Type="nvarchar" Nullable="false" MaxLength="128" />
-  </EntityType>
-  <EntityType Name="UserRole">
-    <Key>
-      <PropertyRef Name="Roles_RoleId" />
-      <PropertyRef Name="Users_UserId" />
-    </Key>
-    <Property Name="Roles_RoleId" Type="nvarchar" Nullable="false" MaxLength="128" />
-    <Property Name="Users_UserId" Type="nvarchar" Nullable="false" MaxLength="128" />
-  </EntityType>
-  <Association Name="FK_dbo_UserClaims_dbo_Users_UserId">
-    <End Role="User" Type="SmartActSModel.Store.Users" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="UserClaims" Type="SmartActSModel.Store.UserClaims" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="UserId" />
-      </Principal>
-      <Dependent Role="UserClaims">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_dbo_UserLogins_dbo_Users_UserId">
-    <End Role="User" Type="SmartActSModel.Store.Users" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="UserLogin" Type="SmartActSModel.Store.UserLogins" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="UserId" />
-      </Principal>
-      <Dependent Role="UserLogin">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="RequestResponse">
-    <End Role="Request" Type="SmartActSModel.Store.Requests" Multiplicity="1" />
-    <End Role="Response" Type="SmartActSModel.Store.Responses" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Request">
-        <PropertyRef Name="RequestId" />
-      </Principal>
-      <Dependent Role="Response">
-        <PropertyRef Name="RequestId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="LocationRequest">
-    <End Role="Location" Type="SmartActSModel.Store.Locations" Multiplicity="0..1" />
-    <End Role="Request" Type="SmartActSModel.Store.Requests" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Location">
-        <PropertyRef Name="LocationId" />
-      </Principal>
-      <Dependent Role="Request">
-        <PropertyRef Name="LocationSupplyId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="RequestCategory">
-    <End Role="Request" Type="SmartActSModel.Store.Requests" Multiplicity="*" />
-    <End Role="Category" Type="SmartActSModel.Store.Categories" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Category">
-        <PropertyRef Name="CategoryId" />
-      </Principal>
-      <Dependent Role="Request">
-        <PropertyRef Name="CategoryId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserRole_Roles">
-    <End Role="Roles" Type="SmartActSModel.Store.Roles" Multiplicity="1" />
-    <End Role="UserRole" Type="SmartActSModel.Store.UserRole" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Roles">
-        <PropertyRef Name="RoleId" />
-      </Principal>
-      <Dependent Role="UserRole">
-        <PropertyRef Name="Roles_RoleId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_UserRole_User">
-    <End Role="UserRole" Type="SmartActSModel.Store.UserRole" Multiplicity="*" />
-    <End Role="User" Type="SmartActSModel.Store.Users" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="UserId" />
-      </Principal>
-      <Dependent Role="UserRole">
-        <PropertyRef Name="Users_UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="SmartActSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SmartActS.dbo.Response' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Response">
+          <Key>
+            <PropertyRef Name="ResponseId" />
+            <PropertyRef Name="RequestId" />
+            <PropertyRef Name="SupplyId" />
+            <PropertyRef Name="categoryId" />
+            <PropertyRef Name="CreatedDate" />
+          </Key>
+          <Property Name="ResponseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResponseTitle" Type="nvarchar" MaxLength="100" />
+          <Property Name="RequestId" Type="int" Nullable="false" />
+          <Property Name="SupplyId" Type="int" Nullable="false" />
+          <Property Name="ResponseTime" Type="datetime" />
+          <Property Name="Status" Type="int" />
+          <Property Name="PriceSuggest" Type="money" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+          <Property Name="FileAttachId" Type="int" />
+          <Property Name="categoryId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserClaims">
+          <Key>
+            <PropertyRef Name="UserClaimId" />
+          </Key>
+          <Property Name="UserClaimId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_UserRoles_dbo_Roles_RoleId">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SmartActSModelStoreContainer">
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserClaims" EntityType="Self.UserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Response" EntityType="Self.Response" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Response].[ResponseId] AS [ResponseId], 
+    [Response].[ResponseTitle] AS [ResponseTitle], 
+    [Response].[RequestId] AS [RequestId], 
+    [Response].[SupplyId] AS [SupplyId], 
+    [Response].[ResponseTime] AS [ResponseTime], 
+    [Response].[Status] AS [Status], 
+    [Response].[PriceSuggest] AS [PriceSuggest], 
+    [Response].[Description] AS [Description], 
+    [Response].[FileAttachId] AS [FileAttachId], 
+    [Response].[categoryId] AS [categoryId], 
+    [Response].[CreatedDate] AS [CreatedDate]
+    FROM [dbo].[Response] AS [Response]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_dbo_UserRoles_dbo_Roles_RoleId" Association="Self.FK_dbo_UserRoles_dbo_Roles_RoleId">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SmartActSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -517,6 +308,7 @@
             <End Role="Category" EntitySet="Categories" />
           </AssociationSet>
           <EntitySet Name="Supplies" EntityType="SmartActSModel.Supply" />
+          <EntitySet Name="Response1" EntityType="SmartActSModel.Response1" />
         </EntityContainer>
         <Association Name="RequestResponse">
           <End Type="SmartActSModel.Request" Role="Request" Multiplicity="1" />
@@ -574,133 +366,37 @@
           <Property Name="IsStatus" Type="Int32" />
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Response1">
+          <Key>
+            <PropertyRef Name="ResponseId" />
+            <PropertyRef Name="RequestId" />
+            <PropertyRef Name="SupplyId" />
+            <PropertyRef Name="categoryId" />
+            <PropertyRef Name="CreatedDate" />
+          </Key>
+          <Property Name="ResponseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResponseTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RequestId" Type="Int32" Nullable="false" />
+          <Property Name="SupplyId" Type="Int32" Nullable="false" />
+          <Property Name="ResponseTime" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="PriceSuggest" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="FileAttachId" Type="Int32" />
+          <Property Name="categoryId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="SmartActSModelStoreContainer" CdmEntityContainer="SmartActSEntities">
-    <EntitySetMapping Name="Categories">
-      <EntityTypeMapping TypeName="IsTypeOf(SmartActSModel.Category)">
-        <MappingFragment StoreEntitySet="Categories">
-          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-          <ScalarProperty Name="CategoryCode" ColumnName="CategoryCode" />
-          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Customers">
-      <EntityTypeMapping TypeName="IsTypeOf(SmartActSModel.Customer)">
-        <MappingFragment StoreEntitySet="Customers">
-          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-          <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
-          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="MobiPhone" ColumnName="MobiPhone" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="LngTitude" ColumnName="LngTitude" />
-          <ScalarProperty Name="LatTitude" ColumnName="LatTitude" />
-          <ScalarProperty Name="LocationId" ColumnName="LocationId" />
-          <ScalarProperty Name="IsStatus" ColumnName="IsStatus" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="FileAttacths">
-      <EntityTypeMapping TypeName="IsTypeOf(SmartActSModel.FileAttacth)">
-        <MappingFragment StoreEntitySet="FileAttacths">
-          <ScalarProperty Name="FileAttachId" ColumnName="FileAttachId" />
-          <ScalarProperty Name="FileName" ColumnName="FileName" />
-          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
-          <ScalarProperty Name="FileSize" ColumnName="FileSize" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Locations">
-      <EntityTypeMapping TypeName="IsTypeOf(SmartActSModel.Location)">
-        <MappingFragment StoreEntitySet="Locations">
-          <ScalarProperty Name="LocationId" ColumnName="LocationId" />
-          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
-          <ScalarProperty Name="LocationName" ColumnName="LocationName" />
-          <ScalarProperty Name="PrarentId" ColumnName="PrarentId" />
-          <ScalarProperty Name="LngTitude" ColumnName="LngTitude" />
-          <ScalarProperty Name="LatTitude" ColumnName="LatTitude" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Ranks">
-      <EntityTypeMapping TypeName="IsTypeOf(SmartActSModel.Rank)">
-        <MappingFragment StoreEntitySet="Ranks">
-          <ScalarProperty Name="RankId" ColumnName="RankId" />
-          <ScalarProperty Name="RankCode" ColumnName="RankCode" />
-          <ScalarProperty Name="RankName" ColumnName="RankName" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Requests">
-      <EntityTypeMapping TypeName="IsTypeOf(SmartActSModel.Request)">
-        <MappingFragment StoreEntitySet="Requests">
-          <ScalarProperty Name="RequestId" ColumnName="RequestId" />
-          <ScalarProperty Name="RequestCode" ColumnName="RequestCode" />
-          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="DurationExpired" ColumnName="DurationExpired" />
-          <ScalarProperty Name="FromBudget" ColumnName="FromBudget" />
-          <ScalarProperty Name="ToBudget" ColumnName="ToBudget" />
-          <ScalarProperty Name="RequireResponse" ColumnName="RequireResponse" />
-          <ScalarProperty Name="ShippingAddress" ColumnName="ShippingAddress" />
-          <ScalarProperty Name="LocationSupplyId" ColumnName="LocationSupplyId" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="BestTime" ColumnName="BestTime" />
-          <ScalarProperty Name="BestSupply" ColumnName="BestSupply" />
-          <ScalarProperty Name="BestPrice" ColumnName="BestPrice" />
-          <ScalarProperty Name="RequestTitle" ColumnName="RequestTitle" />
-          <ScalarProperty Name="FileAttrachId" ColumnName="FileAttrachId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Responses">
-      <EntityTypeMapping TypeName="IsTypeOf(SmartActSModel.Response)">
-        <MappingFragment StoreEntitySet="Responses">
-          <ScalarProperty Name="ResponseId" ColumnName="ResponseId" />
-          <ScalarProperty Name="ResponseTitle" ColumnName="ResponseTitle" />
-          <ScalarProperty Name="RequestId" ColumnName="RequestId" />
-          <ScalarProperty Name="SupplyId" ColumnName="SupplyId" />
-          <ScalarProperty Name="ResponseTime" ColumnName="ResponseTime" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="PriceSuggest" ColumnName="PriceSuggest" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="FileAttachId" ColumnName="FileAttachId" />
-          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Roles">
       <EntityTypeMapping TypeName="IsTypeOf(SmartActSModel.Role)">
         <MappingFragment StoreEntitySet="Roles">
           <ScalarProperty Name="RoleId" ColumnName="RoleId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="IsTypeOf(SmartActSModel.User)">
-        <MappingFragment StoreEntitySet="Users">
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -714,44 +410,25 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="UserLogins">
-      <EntityTypeMapping TypeName="IsTypeOf(SmartActSModel.UserLogin)">
-        <MappingFragment StoreEntitySet="UserLogins">
-          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Supplies">
-      <EntityTypeMapping TypeName="IsTypeOf(SmartActSModel.Supply)">
-        <MappingFragment StoreEntitySet="Supplies">
-          <ScalarProperty Name="SupplyId" ColumnName="SupplyId" />
-          <ScalarProperty Name="SupplyCode" ColumnName="SupplyCode" />
-          <ScalarProperty Name="SupplyName" ColumnName="SupplyName" />
-          <ScalarProperty Name="LocationId" ColumnName="LocationId" />
-          <ScalarProperty Name="LngTitude" ColumnName="LngTitude" />
-          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="MobiPhone" ColumnName="MobiPhone" />
-          <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="Website" ColumnName="Website" />
-          <ScalarProperty Name="RankId" ColumnName="RankId" />
-          <ScalarProperty Name="IsStatus" ColumnName="IsStatus" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <AssociationSetMapping Name="UserRole" TypeName="SmartActSModel.UserRole" StoreEntitySet="UserRole">
-      <EndProperty Name="Roles">
-        <ScalarProperty Name="RoleId" ColumnName="Roles_RoleId" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="UserId" ColumnName="Users_UserId" />
-      </EndProperty>
-    </AssociationSetMapping>
+      </AssociationSetMapping>
+          <EntitySetMapping Name="Response1">
+            <EntityTypeMapping TypeName="SmartActSModel.Response1">
+              <MappingFragment StoreEntitySet="Response">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+                <ScalarProperty Name="FileAttachId" ColumnName="FileAttachId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PriceSuggest" ColumnName="PriceSuggest" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ResponseTime" ColumnName="ResponseTime" />
+                <ScalarProperty Name="SupplyId" ColumnName="SupplyId" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="ResponseTitle" ColumnName="ResponseTitle" />
+                <ScalarProperty Name="ResponseId" ColumnName="ResponseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
