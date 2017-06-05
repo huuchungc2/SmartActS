@@ -33,7 +33,8 @@
             @Html.DisplayFor(modelItem => item.CategoryName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ParentId)
+            
+            @Html.DisplayFor(modelItem =>  item.ParentId)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CategoryId }) |

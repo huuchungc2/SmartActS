@@ -44,6 +44,7 @@ namespace SmartActS.Controllers
         {
             CategoryContext cat = new CategoryContext();
             ViewBag.CategoryList = new SelectList(cat.GetCategoryList(), "CategoryId", "CategoryName");
+         
             return View();
         }
 
