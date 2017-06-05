@@ -55,15 +55,26 @@ namespace SmartActS.Controllers
         /// </summary>
         /// <param name="category"></param>
         /// <returns></returns>
+    
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoryId,CategoryCode,CategoryName,ParentId")] Category category)
+        public ActionResult Create([Bind(Include = "CategoryId,CategoryCode,CategoryName,ParentId")] Category category,FormCollection form)
         {
             if (ModelState.IsValid)
             {
+                int parent_Id = -1;
                 //  category.CategoryId = Convert.ToInt32(FormCollection["Select Category"]);
-               
+                try
+                {
+                    parent_Id =int.Parse( form["ddlCat"].ToString());
+                }
+                catch (Exception)
+                {
 
+                    parent_Id = -1;
+                }
+                if (parent_Id != -1)
+                    category.ParentId = parent_Id;
                 db.Categories.Add(category);
                 db.SaveChanges();
                 return RedirectToAction("Index");

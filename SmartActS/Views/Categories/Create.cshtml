@@ -37,7 +37,7 @@
             <div class="control-label col-md-2">Parent</div>
             <div class="col-md-10">
               
-              @Html.DropDownList("Select Category",ViewBag.CategoryList as SelectList,"Select parents")
+              @Html.DropDownList("ddlCat",ViewBag.CategoryList as SelectList,"Select parents")
                 @Html.HiddenFor(model=>model.ParentId)
             </div>
         </div>
