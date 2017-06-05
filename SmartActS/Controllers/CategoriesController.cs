@@ -17,9 +17,12 @@ namespace SmartActS.Controllers
         // GET: Categories
         public ActionResult Index()
         {
-            
+           // List<SelectListItem> items = new List<SelectListItem>();
+          
             return View(db.Categories.ToList());
         }
+      
+      
 
         // GET: Categories/Details/5
         public ActionResult Details(int? id)
@@ -39,18 +42,28 @@ namespace SmartActS.Controllers
         // GET: Categories/Create
         public ActionResult Create()
         {
+            CategoryContext cat = new CategoryContext();
+            ViewBag.CategoryList = new SelectList(cat.GetCategoryList(), "CategoryId", "CategoryName");
             return View();
         }
 
         // POST: Categories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CategoryId,CategoryCode,CategoryName,ParentId")] Category category)
         {
             if (ModelState.IsValid)
             {
+                //  category.CategoryId = Convert.ToInt32(FormCollection["Select Category"]);
+               
+
                 db.Categories.Add(category);
                 db.SaveChanges();
                 return RedirectToAction("Index");

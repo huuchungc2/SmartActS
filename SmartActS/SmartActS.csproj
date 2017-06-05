@@ -208,6 +208,7 @@
     <Compile Include="Controllers\ResponsesController.cs" />
     <Compile Include="Controllers\SuppliesController.cs" />
     <Compile Include="DataModels\Category.cs" />
+    <Compile Include="DataModels\CategoryContext.cs" />
     <Compile Include="DataModels\Customer.cs" />
     <Compile Include="DataModels\FileAttacth.cs" />
     <Compile Include="DataModels\Location.cs" />
