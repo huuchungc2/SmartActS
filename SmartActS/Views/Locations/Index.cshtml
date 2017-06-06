@@ -19,7 +19,7 @@
             @Html.DisplayNameFor(model => model.LocationName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PrarentId)
+           Parent
         </th>
         <th>
             @Html.DisplayNameFor(model => model.LngTitude)
@@ -39,7 +39,7 @@
             @Html.DisplayFor(modelItem => item.LocationName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PrarentId)
+            @Html.DisplayFor(modelItem => modelItem.ToList().Find(m=>m.LocationId ==item.ParentId).LocationName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.LngTitude)

@@ -38,6 +38,19 @@ namespace SmartActS.Controllers
         // GET: Locations/Create
         public ActionResult Create()
         {
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (var item in db.Locations.ToList())
+            {
+                SelectListItem sitem = new SelectListItem();
+                sitem.Value = item.LocationId.ToString();
+                sitem.Text = item.LocationName;
+                items.Add(sitem);
+
+            }
+
+
+           // ViewBag.CategoryList = new SelectList(cat.GetCategoryList(), "CategoryId", "CategoryName");
+            ViewBag.ListLocation = new SelectList( items, "Value", "Text");
             return View();
         }
 
@@ -46,10 +59,23 @@ namespace SmartActS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LocationId,LocationCode,LocationName,PrarentId,LngTitude,LatTitude")] Location location)
+        public ActionResult Create([Bind(Include = "LocationId,LocationCode,LocationName,PrarentId,LngTitude,LatTitude")] Location location, FormCollection form)
         {
             if (ModelState.IsValid)
             {
+                int parent_Id = -1;
+                //  category.CategoryId = Convert.ToInt32(FormCollection["Select Category"]);
+                try
+                {
+                    parent_Id = int.Parse(form["ddParent"].ToString());
+                }
+                catch (Exception)
+                {
+
+                    parent_Id = -1;
+                }
+                if (parent_Id != -1)
+                    location.ParentId = parent_Id;
                 db.Locations.Add(location);
                 db.SaveChanges();
                 return RedirectToAction("Index");

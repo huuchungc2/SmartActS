@@ -19,7 +19,8 @@
             @Html.DisplayNameFor(model => model.CategoryName)
         </th>
         <th>
-           @Html.DisplayNameFor(model => model.ParentId)
+           
+           Parent
         </th>
         <th></th>
     </tr>
@@ -34,7 +35,7 @@
         </td>
         <td>
             
-            @Html.DisplayFor(modelItem =>  item.ParentId)
+            @Html.DisplayFor(modelItem => modelItem.ToList().Find(m => m.CategoryId == item.ParentId).CategoryName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CategoryId }) |

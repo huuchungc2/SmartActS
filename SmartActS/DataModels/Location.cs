@@ -9,7 +9,7 @@ namespace SmartActS.DataModels
     [Table("Location")]
     public partial class Location
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+       
         public int LocationId { get; set; }
 
         [StringLength(50)]
@@ -18,7 +18,7 @@ namespace SmartActS.DataModels
         [StringLength(100)]
         public string LocationName { get; set; }
 
-        public int? PrarentId { get; set; }
+        public int? ParentId { get; set; }
 
         public double? LngTitude { get; set; }
 
