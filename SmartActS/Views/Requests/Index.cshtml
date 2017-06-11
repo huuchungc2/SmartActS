@@ -12,16 +12,21 @@
 </p>
 <table class="table">
     <tr>
+
         <th>
             @Html.DisplayNameFor(model => model.RequestCode)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CategoryId)
+            @Html.DisplayNameFor(model => model.RequestTitle)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CustomerId)
+            Category
         </th>
         <th>
+            Location Supply
+        </th>
+        <th>
+            
             @Html.DisplayNameFor(model => model.Status)
         </th>
         <th>
@@ -42,27 +47,10 @@
         <th>
             @Html.DisplayNameFor(model => model.ShippingAddress)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LocationSupplyId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BestTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BestSupply)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BestPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RequestTitle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FileAttrachId)
-        </th>
+       
+       
+      
+      
         <th></th>
     </tr>
 
@@ -72,10 +60,13 @@
             @Html.DisplayFor(modelItem => item.RequestCode)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.RequestTitle)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.CategoryId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CustomerId)
+            @Html.DisplayFor(modelItem => item.LocationSupplyId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Status)
@@ -98,27 +89,10 @@
         <td>
             @Html.DisplayFor(modelItem => item.ShippingAddress)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LocationSupplyId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BestTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BestSupply)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BestPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequestTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FileAttrachId)
-        </td>
+      
+      
+      
+      
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.RequestId }) |
             @Html.ActionLink("Details", "Details", new { id=item.RequestId }) |

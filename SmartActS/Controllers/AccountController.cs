@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SmartActS.Models;
+using SmartActS.DataModels;
+using System.Collections.Generic;
 
 namespace SmartActS.Controllers
 {
@@ -139,7 +141,23 @@ namespace SmartActS.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            SmartActSModel db = new SmartActSModel();
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (var item in db.Roles.ToList())
+            {
+                SelectListItem sitem = new SelectListItem();
+                sitem.Value = item.RoleId.ToString();
+                sitem.Text = item.Name;
+                items.Add(sitem);
+
+            }
+
+
+            // ViewBag.CategoryList = new SelectList(cat.GetCategoryList(), "CategoryId", "CategoryName");
+            ViewBag.ListRole = new SelectList(items, "Value", "Text");
             return View();
+
+            //return View();
         }
 
         //
@@ -147,12 +165,17 @@ namespace SmartActS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, FormCollection form)
         {
             if (ModelState.IsValid)
             {
+                SmartActSModel db = new SmartActSModel();
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                var roleId = form["ddlRole"].ToString(); 
+              
+              //  var roleName = db.Roles.Find(roleId).Name;
+               // var userRole = await UserManager.AddToRole (user., db.Roles.Find(roleId).Name);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
