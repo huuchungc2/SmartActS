@@ -138,23 +138,28 @@ namespace SmartActS.Controllers
 
         //
         // GET: /Account/Register
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult Register()
         {
             SmartActSModel db = new SmartActSModel();
-            List<SelectListItem> items = new List<SelectListItem>();
-            foreach (var item in db.Roles.ToList())
-            {
-                SelectListItem sitem = new SelectListItem();
-                sitem.Value = item.RoleId.ToString();
-                sitem.Text = item.Name;
-                items.Add(sitem);
+            //List<SelectListItem> items = new List<SelectListItem>();
+            //foreach (var item in db.Roles.ToList())
+            //{
+            //    SelectListItem sitem = new SelectListItem();
+            //    sitem.Value = item.RoleId.ToString();
+            //    sitem.Text = item.Name;
+            //    items.Add(sitem);
 
-            }
+            //}
 
 
             // ViewBag.CategoryList = new SelectList(cat.GetCategoryList(), "CategoryId", "CategoryName");
-            ViewBag.ListRole = new SelectList(items, "Value", "Text");
+            ViewBag.ListRole =  new SelectList(db.Roles.Where(u => !u.Name.Contains("Admin"))
+                                            .ToList(), "Name", "Name");
             return View();
 
             //return View();
