@@ -208,6 +208,7 @@
     <Compile Include="Controllers\ResponsesController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SuppliesController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DataModels\Category.cs" />
     <Compile Include="DataModels\CategoryContext.cs" />
     <Compile Include="DataModels\Customer.cs" />
@@ -343,6 +344,7 @@
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Shared\_Layout - admin.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

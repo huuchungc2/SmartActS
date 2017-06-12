@@ -7,17 +7,54 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SmartActS.DataModels;
+using Microsoft.AspNet.Identity;
 
 namespace SmartActS.Controllers
 {
     public class RolesController : Controller
     {
         private SmartActSModel db = new SmartActSModel();
-
+        SmartActS.Models.ApplicationDbContext context = new Models.ApplicationDbContext();
+        public Boolean isAdminUser()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = User.Identity;
+                Models.ApplicationDbContext context = new Models.ApplicationDbContext();
+                var UserManager = new UserManager<Models.ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<Models.ApplicationUser>(context));
+                var s = UserManager.GetRoles(user.GetUserId());
+                if (s[0].ToString() == "Admin")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
         // GET: Roles
         public ActionResult Index()
         {
-            return View(db.Roles.ToList());
+
+            if (User.Identity.IsAuthenticated)
+            {
+
+
+                if (!isAdminUser())
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var Roles = context.Roles.ToList();
+            return View(Roles);
+
         }
 
         // GET: Roles/Details/5

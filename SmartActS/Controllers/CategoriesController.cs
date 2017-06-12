@@ -42,8 +42,8 @@ namespace SmartActS.Controllers
         // GET: Categories/Create
         public ActionResult Create()
         {
-            CategoryContext cat = new CategoryContext();
-            ViewBag.CategoryList = new SelectList(cat.GetCategoryList(), "CategoryId", "CategoryName");
+           // CategoryContext cat = new CategoryContext();
+            ViewBag.CategoryList = new SelectList(db.Categories.ToList(), "CategoryId", "CategoryName");
          
             return View();
         }
