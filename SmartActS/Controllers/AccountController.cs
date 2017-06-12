@@ -19,7 +19,7 @@ namespace SmartActS.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        Models.ApplicationDbContext context = new ApplicationDbContext();
         public AccountController()
         {
         }
@@ -145,20 +145,7 @@ namespace SmartActS.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            SmartActSModel db = new SmartActSModel();
-            //List<SelectListItem> items = new List<SelectListItem>();
-            //foreach (var item in db.Roles.ToList())
-            //{
-            //    SelectListItem sitem = new SelectListItem();
-            //    sitem.Value = item.RoleId.ToString();
-            //    sitem.Text = item.Name;
-            //    items.Add(sitem);
-
-            //}
-
-
-            // ViewBag.CategoryList = new SelectList(cat.GetCategoryList(), "CategoryId", "CategoryName");
-            ViewBag.ListRole =  new SelectList(db.Roles.Where(u => !u.Name.Contains("Admin"))
+            ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
                                             .ToList(), "Name", "Name");
             return View();
 

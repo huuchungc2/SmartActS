@@ -18,9 +18,10 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-2 control-label">Role</label>
+        @Html.Label("user Role", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.DropDownList("ddlRole", ViewBag.ListRole as SelectList, "Select Role")
+            @*@Html.DropDownList("Name")*@
+            @Html.DropDownList("UserRoles", (SelectList)ViewBag.Name, " ")
         </div>
     </div>
     <div class="form-group">
