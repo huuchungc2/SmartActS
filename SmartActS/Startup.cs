@@ -36,8 +36,10 @@ namespace SmartActS
 
                 var user = new ApplicationUser();
                 user.UserName = "huuchungc2";
-                user.Email = "huuchungc2@gmail.com ";
-                
+                user.Email = "huuchungc2@gmail.com";
+              
+
+
                 string userPWD = "Teo@12345#";
 
                 var chkUser = UserManager.Create(user, userPWD);
