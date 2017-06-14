@@ -81,7 +81,19 @@ namespace SmartActS.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    //    SmartActSModel db = new DataModels.SmartActSModel();
+                    //    var user = UserManager.FindByEmail(model.Email);
+
+                    //  var roles = UserManager.GetRoles(user.Id);
+                    // var roleName=    roles.First();
+                    //switch (roleName) {
+                    //        case "Customer":
+                    //        return RedirectToAction("index", "Requests");
+                    //        case "Supply":
+                    //            return RedirectToAction("index", "Requests");
+                    //        default: return RedirectToAction("index", "Manage");
+                    //    }
+                    return RedirectToAction("index", "Requests");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -160,6 +172,7 @@ namespace SmartActS.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             SmartActS.Models.ApplicationDbContext context = new SmartActS.Models.ApplicationDbContext();
+            SmartActSModel db = new DataModels.SmartActSModel();
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
@@ -175,8 +188,33 @@ namespace SmartActS.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");   
                     //Assign Role to user Here      
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
-                    //Ends Here    
-                    return RedirectToAction("Index", "Users");
+                  if(model.UserRoles.Equals("Customer"))
+                    {
+                        Customer objCustomer = new DataModels.Customer();
+                        objCustomer.Email = model.Email;
+                        objCustomer.UserId = user.Id;
+                        objCustomer.IsStatus = 1;// active
+                        
+                        db.Customers.Add(objCustomer);
+                        db.SaveChanges();
+                   }
+                    else if (model.UserRoles.Equals("Supply"))
+                    {
+                        Supply objSupply = new DataModels.Supply();
+                        objSupply.Email = model.Email;
+                        objSupply.UserId = user.Id;
+                        objSupply.IsStatus = 1;// active
+                        objSupply.CategoryId = 1;
+                        db.Supplies.Add(objSupply);
+                        db.SaveChanges();
+                    }
+
+                    //if (model.UserRoles.Equals("Customer"))
+                    //      //Ends Here    
+                    //    return RedirectToAction("Index", "Requests");
+                    //else if (model.UserRoles.Equals("Supply"))
+                    //    return RedirectToAction("Index", "Responses");
+                    return RedirectToAction("index", "Requests");
                 }
                 ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
                                           .ToList(), "Name", "Name");

@@ -7,21 +7,65 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SmartActS.DataModels;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity;
+using SmartActS.Models;
+
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin;
+using Owin;
 
 namespace SmartActS.Controllers
 {
+    [Authorize]
     public class RequestsController : Controller
     {
+       // private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+        Models.ApplicationDbContext context = new Models.ApplicationDbContext();
         private SmartActSModel db = new SmartActSModel();
 
         // GET: Requests
         public ActionResult Index()
         {
-            ViewBag.ListLocaton = db.Locations.ToList();
-            ViewBag.ListCategory = db.Locations.ToList();
-            return View(db.Requests.ToList());
-        }
+            //ViewBag.ListLocaton = db.Locations.ToList();
+            //ViewBag.ListCategory = db.Locations.ToList();
+            var roles = UserManager.GetRoles(User.Identity.GetUserId());
+            var roleName = roles.First();
+            switch (roleName)
+            {
+                case "Customer":
+                    var customer = db.Customers.Where(m => m.UserId == User.Identity.GetUserId()).First();
+                    return View(db.Requests.Where(m => m.CustomerId == customer.CustomerId).ToList().OrderByDescending(m => m.CreatedDate));
+                case "Supply":
+                    var supply = db.Supplies.Where(m => m.UserId == User.Identity.GetUserId()).First();
+                    return View(db.Requests.Where(m => m.CategoryId == supply.CategoryId).ToList().OrderByDescending(m=>m.CreatedDate));
+                case "Admin":
+                    return View(db.Requests.ToList());
+                default: return RedirectToAction("index", "Manage");
+            }
 
+            // all request of current user
+           
+           
+           
+        }
+      
+
+    
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+        
         // GET: Requests/Details/5
         public ActionResult Details(int? id)
         {
@@ -91,7 +135,7 @@ namespace SmartActS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RequestId,RequestCode,CategoryId,CustomerId,Status,CreatedDate,DurationExpired,FromBudget,ToBudget,RequireResponse,ShippingAddress,LocationSupplyId,Description,BestTime,BestSupply,BestPrice,RequestTitle,FileAttrachId")] Request request, FormCollection form)
+        public ActionResult Create([Bind(Include = "RequestId,RequestCode,CategoryId,CustomerId,Status,CreatedDate,DurationExpired,FromBudget,ToBudget,RequireResponse,ShippingAddress,LocationSupplyId,Description,BestTime,BestSupply,BestPrice,RequestTitle,FileAttrachId")] Request request, System.Web.Mvc.FormCollection form)
         {
             if (ModelState.IsValid)
             {
@@ -139,7 +183,11 @@ namespace SmartActS.Controllers
 
                     durat_ex = 0;
                 }
+                var userId = User.Identity.GetUserId();
+                var customer = db.Customers.Where(m => m.UserId == userId).First();
+
                 request.Status = 0;// 0 pendding, 1 approval, 2 expired
+                request.CustomerId = customer.CustomerId;
                 request.DurationExpired = durat_ex;
                 db.Requests.Add(request);
                 db.SaveChanges();

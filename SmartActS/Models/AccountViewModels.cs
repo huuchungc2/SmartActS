@@ -48,6 +48,7 @@ namespace SmartActS.Models
 
     public class LoginViewModel
     {
+        
         [Required]
         [Display(Name = "Email")]
         [EmailAddress]

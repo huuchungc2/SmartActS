@@ -7,19 +7,60 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SmartActS.DataModels;
+using Microsoft.AspNet.Identity;
 
 namespace SmartActS.Controllers
 {
+    [Authorize]
     public class ResponsesController : Controller
     {
         private SmartActSModel db = new SmartActSModel();
-
+        private ApplicationUserManager _userManager;
+        Models.ApplicationDbContext context = new Models.ApplicationDbContext();
         // GET: Responses
         public ActionResult Index()
         {
-            return View(db.Responses.ToList());
+
+            //// all request of current user
+            //var userId = User.Identity.GetUserId();
+            //var supply = db.Supplies.Where(m => m.UserId == userId).First();
+
+            //return View(db.Responses.Where(m => m.SupplyId == supply.SupplyId).ToList());
+            //  return View(db.Responses.ToList());
+            //ViewBag.ListLocaton = db.Locations.ToList();
+            //ViewBag.ListCategory = db.Locations.ToList();
+            var roles = UserManager.GetRoles(User.Identity.GetUserId());
+            var roleName = roles.First();
+            switch (roleName)
+            {
+                case "Customer":
+                    var customer = db.Customers.Where(m => m.UserId == User.Identity.GetUserId()).First();
+                    var request = db.Requests.Where(m => m.CustomerId == customer.CustomerId);
+                    var requestIds = (from d in request select d.RequestId);
+
+
+                    return View(db.Responses.Where(m => requestIds.Contains(m.RequestId)));
+
+                case "Supply":
+                    var supply = db.Supplies.Where(m => m.UserId == User.Identity.GetUserId()).First();
+                    return View(db.Responses.Where(m => m.SupplyId == supply.SupplyId).ToList().OrderByDescending(m => m.ResponseTime));
+                case "Admin":
+                    return View(db.Responses.ToList());
+                default: return RedirectToAction("index", "Manage");
+            }
         }
 
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         // GET: Responses/Details/5
         public ActionResult Details(int? id)
         {
@@ -50,6 +91,9 @@ namespace SmartActS.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = User.Identity.GetUserId();
+                var supply = db.Supplies.Where(m => m.UserId == userId).First();
+                response.SupplyId = supply.SupplyId;
                 db.Responses.Add(response);
                 db.SaveChanges();
                 return RedirectToAction("Index");

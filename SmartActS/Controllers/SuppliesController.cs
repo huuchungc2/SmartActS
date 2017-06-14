@@ -10,6 +10,7 @@ using SmartActS.DataModels;
 
 namespace SmartActS.Controllers
 {
+    [Authorize(Roles = "Supply")]
     public class SuppliesController : Controller
     {
         private SmartActSModel db = new SmartActSModel();

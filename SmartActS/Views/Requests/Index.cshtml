@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<SmartActS.DataModels.Request>
-
+@using SmartActS.DataModels
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_Request.cshtml";
@@ -14,16 +14,18 @@
     <tr>
 
         <th>
-            @Html.DisplayNameFor(model => model.RequestCode)
+            @Html.DisplayName("Code")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RequestTitle)
+            @Html.DisplayName("Title")
         </th>
         <th>
-            Category
+            @Html.DisplayName("Category")   
         </th>
         <th>
-            Location Supply
+            @Html.DisplayName("Location Supply")
+            
+            
         </th>
         <th>
             
@@ -33,20 +35,12 @@
             @Html.DisplayNameFor(model => model.CreatedDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DurationExpired)
+            @Html.DisplayName("Duration")
+           
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FromBudget)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ToBudget)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RequireResponse)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShippingAddress)
-        </th>
+       
+       
+    
        
        
       
@@ -63,36 +57,29 @@
             @Html.DisplayFor(modelItem => item.RequestTitle)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CategoryId)
+            @Html.DisplayFor(modelItem =>new SmartActSModel().Categories.Find(   item.CategoryId).CategoryName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LocationSupplyId)
+            @Html.DisplayFor(modelItem => new SmartActSModel().Locations.Find(item.LocationSupplyId).LocationName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Status)
+           
+            @if (item.Status == 0)
+            {
+               <p>Pending</p>
+            }
+            else
+            {    <p>Approved</p> }
+          
+
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CreatedDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DurationExpired)
+            @Html.DisplayFor(modelItem => item.DurationExpired) hours
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FromBudget)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ToBudget)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequireResponse)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShippingAddress)
-        </td>
-      
-      
-      
-      
+        
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.RequestId }) |
             @Html.ActionLink("Details", "Details", new { id=item.RequestId }) |

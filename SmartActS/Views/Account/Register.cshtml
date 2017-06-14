@@ -1,6 +1,7 @@
 ﻿@model SmartActS.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -18,7 +19,7 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.Label("user Role", new { @class = "col-md-2 control-label" })
+        @Html.Label("User Role", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @*@Html.DropDownList("Name")*@
             @Html.DropDownList("UserRoles", (SelectList)ViewBag.Name, " ")

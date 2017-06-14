@@ -23,6 +23,7 @@ namespace SmartActS.DataModels
         [NotMapped]
        // public System.Web.Mvc.SelectList CategoryList { get; set; 
        public List<SelectList> CategoryList { get; set; }
+     
 
     }
 }
