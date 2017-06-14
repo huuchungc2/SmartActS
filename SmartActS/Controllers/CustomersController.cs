@@ -7,20 +7,51 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SmartActS.DataModels;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 
 namespace SmartActS.Controllers
 {
     [Authorize(Roles = "Customer")]
     public class CustomersController : Controller
     {
+        private ApplicationUserManager _userManager;
+        Models.ApplicationDbContext context = new Models.ApplicationDbContext();
         private SmartActSModel db = new SmartActSModel();
 
         // GET: Customers
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+            // return View(db.Customers.ToList());
+            //  return View(db.Supplies.ToList());
+            //ViewBag.ListLocaton = db.Locations.ToList();
+            //ViewBag.ListCategory = db.Locations.ToList();
+            var roles = UserManager.GetRoles(User.Identity.GetUserId());
+            var roleName = roles.First();
+            var userid = User.Identity.GetUserId();
+            switch (roleName)
+            {
+
+                case "Customer":
+                    var customer = db.Customers.Where(m => m.UserId == userid).First();
+                    return View(db.Customers.Where(m => m.CustomerId == customer.CustomerId).ToList());
+                default:
+                    return View(db.Customers.ToList());
+               // default: return RedirectToAction("index", "Manage");
+            }
         }
 
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         // GET: Customers/Details/5
         public ActionResult Details(int? id)
         {

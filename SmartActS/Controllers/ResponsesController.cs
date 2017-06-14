@@ -7,7 +7,10 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SmartActS.DataModels;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity;
+using SmartActS.Models;
 
 namespace SmartActS.Controllers
 {

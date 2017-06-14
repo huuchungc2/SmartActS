@@ -18,6 +18,7 @@ namespace SmartActS.Controllers
 
         public ManageController()
         {
+            
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -72,6 +73,33 @@ namespace SmartActS.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = User.Identity;
+                Models.ApplicationDbContext context = new Models.ApplicationDbContext();
+                var UserManager = new UserManager<Models.ApplicationUser>(new Microsoft.AspNet.Identity.EntityFramework.UserStore<Models.ApplicationUser>(context));
+                var s = UserManager.GetRoles(user.GetUserId());
+                if (s[0].ToString() == "Admin")
+                {
+                    ViewBag.IsAdmin = "yes";
+                    ViewBag.IsCustomer = "no";
+                    ViewBag.IsSupply = "no";
+                }
+                else if (s[0].ToString() == "Customer")
+                {
+                    ViewBag.IsAdmin = "no";
+                    ViewBag.IsCustomer = "yes";
+                    ViewBag.IsSupply = "no";
+                }
+
+                else if (s[0].ToString() == "Supply")
+                {
+                    ViewBag.IsAdmin = "no";
+                    ViewBag.IsCustomer = "no";
+                    ViewBag.IsSupply = "yes";
+                }
+            }
+           
             return View(model);
         }
 

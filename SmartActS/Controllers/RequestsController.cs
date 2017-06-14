@@ -33,13 +33,15 @@ namespace SmartActS.Controllers
             //ViewBag.ListCategory = db.Locations.ToList();
             var roles = UserManager.GetRoles(User.Identity.GetUserId());
             var roleName = roles.First();
+            var userid = User.Identity.GetUserId();
             switch (roleName)
             {
                 case "Customer":
-                    var customer = db.Customers.Where(m => m.UserId == User.Identity.GetUserId()).First();
+                  
+                    var customer = db.Customers.Where(m => m.UserId == userid).First();
                     return View(db.Requests.Where(m => m.CustomerId == customer.CustomerId).ToList().OrderByDescending(m => m.CreatedDate));
                 case "Supply":
-                    var supply = db.Supplies.Where(m => m.UserId == User.Identity.GetUserId()).First();
+                    var supply = db.Supplies.Where(m => m.UserId == userid).First();
                     return View(db.Requests.Where(m => m.CategoryId == supply.CategoryId).ToList().OrderByDescending(m=>m.CreatedDate));
                 case "Admin":
                     return View(db.Requests.ToList());

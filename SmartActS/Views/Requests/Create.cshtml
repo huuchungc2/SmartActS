@@ -34,7 +34,7 @@
         <div class="form-group">
             <div class="control-label col-md-2">Category</div>
             <div class="col-md-10">
-                @Html.DropDownList("ddCategory", ViewBag.ListCategory as SelectList, "Select Location")
+                @Html.DropDownList("ddCategory", ViewBag.ListCategory as SelectList, "Select Category")
             </div>
         </div>
         <div class="form-group">
@@ -72,7 +72,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(Return Number , htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Return Number" , htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.RequireResponse, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.RequireResponse, "", new { @class = "text-danger" })

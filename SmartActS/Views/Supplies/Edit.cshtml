@@ -35,12 +35,19 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LocationId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="control-label col-md-2">Category</div>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LocationId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LocationId, "", new { @class = "text-danger" })
+                @Html.DropDownList("ddCategory", ViewBag.ListCategory as SelectList)
             </div>
         </div>
+        <div class="form-group">
+            <div class="control-label col-md-2">Location</div>
+            <div class="col-md-10">
+                @Html.DropDownList("ddLocation", ViewBag.ListLocation as SelectList)
+
+            </div>
+        </div>
+      
 
         <div class="form-group">
             @Html.LabelFor(model => model.LngTitude, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -58,13 +65,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CategoryId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+       
 
         <div class="form-group">
             @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -122,13 +123,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+      
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<SmartActS.DataModels.Supply>
-
+@using SmartActS.DataModels
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,16 +19,11 @@
             @Html.DisplayNameFor(model => model.SupplyName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LocationId)
+            @Html.DisplayName("Location")
         </th>
+       
         <th>
-            @Html.DisplayNameFor(model => model.LngTitude)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Latitude)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryId)
+            @Html.DisplayName("Category")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Address)
@@ -46,14 +41,12 @@
             @Html.DisplayNameFor(model => model.Website)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RankId)
+            @Html.DisplayName("Rank")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsStatus)
+            @Html.DisplayName("Status")
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
+       
         <th></th>
     </tr>
 
@@ -66,20 +59,13 @@
             @Html.DisplayFor(modelItem => item.SupplyName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LocationId)
+        @Html.DisplayFor(modelItem => new SmartActSModel().Locations.Find(item.LocationId).LocationName) 
         </td>
+       
         <td>
-            @Html.DisplayFor(modelItem => item.LngTitude)
+            @Html.DisplayFor(modelItem => new SmartActSModel().Categories.Find(item.CategoryId).CategoryName)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Latitude)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
+       
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
@@ -98,9 +84,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.IsStatus)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
+       
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.SupplyId }) |
             @Html.ActionLink("Details", "Details", new { id=item.SupplyId }) |
