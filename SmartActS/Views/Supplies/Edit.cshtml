@@ -22,7 +22,7 @@
             @Html.LabelFor(model => model.SupplyCode, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.SupplyCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SupplyCode, "", new { @class = "text-danger" })
+             
             </div>
         </div>
 
@@ -30,21 +30,25 @@
             @Html.LabelFor(model => model.SupplyName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.SupplyName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SupplyName, "", new { @class = "text-danger" })
+             
+            </div>
+        </div>
+
+       
+        <div class="form-group">
+            <div class="control-label col-md-2">Location</div>
+            <div class="col-md-10">
+               
+                @Html.DropDownList("ddLocation", (IEnumerable< SelectListItem >) ViewData["ListLocation"] ,"Select Location")
+
             </div>
         </div>
 
         <div class="form-group">
             <div class="control-label col-md-2">Category</div>
             <div class="col-md-10">
-                @Html.DropDownList("ddCategory", ViewBag.ListCategory as SelectList)
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="control-label col-md-2">Location</div>
-            <div class="col-md-10">
-                @Html.DropDownList("ddLocation", ViewBag.ListLocation as SelectList)
 
+                @Html.DropDownList("ddCategory", (IEnumerable<SelectListItem>)ViewData["ListCategory"] , "Select Category")
             </div>
         </div>
       
@@ -53,7 +57,7 @@
             @Html.LabelFor(model => model.LngTitude, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.LngTitude, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LngTitude, "", new { @class = "text-danger" })
+               
             </div>
         </div>
 
@@ -61,7 +65,7 @@
             @Html.LabelFor(model => model.Latitude, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Latitude, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Latitude, "", new { @class = "text-danger" })
+               
             </div>
         </div>
 
@@ -71,7 +75,7 @@
             @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                
             </div>
         </div>
 
@@ -79,7 +83,7 @@
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                
             </div>
         </div>
 
@@ -87,7 +91,7 @@
             @Html.LabelFor(model => model.MobiPhone, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.MobiPhone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MobiPhone, "", new { @class = "text-danger" })
+             
             </div>
         </div>
 
@@ -95,7 +99,7 @@
             @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+               
             </div>
         </div>
 
@@ -103,7 +107,7 @@
             @Html.LabelFor(model => model.Website, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Website, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
+               
             </div>
         </div>
 
@@ -111,7 +115,7 @@
             @Html.LabelFor(model => model.RankId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.RankId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RankId, "", new { @class = "text-danger" })
+              
             </div>
         </div>
 
@@ -119,11 +123,18 @@
             @Html.LabelFor(model => model.IsStatus, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.IsStatus, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IsStatus, "", new { @class = "text-danger" })
+             
             </div>
         </div>
 
-      
+
+        <div class="form-group">
+           
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

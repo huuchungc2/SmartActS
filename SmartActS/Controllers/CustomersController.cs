@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace SmartActS.Controllers
 {
-    [Authorize(Roles = "Customer")]
+    [Authorize]
     public class CustomersController : Controller
     {
         private ApplicationUserManager _userManager;

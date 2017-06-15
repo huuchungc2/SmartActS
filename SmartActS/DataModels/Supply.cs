@@ -16,13 +16,13 @@ namespace SmartActS.DataModels
 
         [StringLength(100)]
         public string SupplyName { get; set; }
-
+       
         public int? LocationId { get; set; }
 
         public double? LngTitude { get; set; }
 
         public double? Latitude { get; set; }
-
+    
         public int? CategoryId { get; set; }
 
         [StringLength(1000)]

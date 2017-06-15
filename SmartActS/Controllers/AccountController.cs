@@ -216,8 +216,8 @@ namespace SmartActS.Controllers
                     //    return RedirectToAction("Index", "Responses");
                     return RedirectToAction("index", "Requests");
                 }
-                ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
-                                          .ToList(), "Name", "Name",1);
+                //ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
+                //                          .ToList(), "Name", "Name",1);
                 AddErrors(result);
             }
 

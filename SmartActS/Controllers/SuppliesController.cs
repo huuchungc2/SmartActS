@@ -144,21 +144,26 @@ namespace SmartActS.Controllers
             var selected = (from sub in db.Categories
                             where sub.CategoryId ==supply.CategoryId
                                  select sub.CategoryId).First();
-            ViewBag.ListCategory = new SelectList(db.Categories, "CategoryId", "CategoryName", selected);
-            }else
+                //ViewBag.ListCategory = new SelectList(db.Categories, "CategoryId", "CategoryName");
+                ViewData["ListCategory"]= new SelectList(db.Categories, "CategoryId", "CategoryName",selected);
+            }
+            else
             {
-                ViewBag.ListCategory = new SelectList(db.Categories, "CategoryId", "CategoryName", 1);
+              //  ViewBag.ListCategory = new SelectList(db.Categories.ToList(), "CategoryId", "CategoryName");
+                ViewData["ListCategory"] = new SelectList(db.Categories, "CategoryId", "CategoryName");
             }
             if (supply.LocationId != null)
             {
                 var selected = (from sub in db.Locations
                                 where sub.LocationId == supply.LocationId
                                 select sub.LocationId).First();
-                ViewBag.ListLocation = new SelectList(db.Locations, "LocationId", "LocationName", selected);
+              //  ViewBag.ListLocation = new SelectList(db.Locations.ToList(), "LocationId", "LocationName",selected);
+                ViewData["ListLocation"] = new SelectList(db.Locations.ToList(), "LocationId", "LocationName", selected);
             }
             else
             {
-                ViewBag.ListLocation = new SelectList(db.Locations, "LocationId", "LocationName", 1);
+                ViewData["ListLocation"]= new SelectList(db.Locations.ToList(), "LocationId", "LocationName");
+                //ViewBag.ListLocation = new SelectList(db.Locations, "LocationId", "LocationName");
             }
            // ViewBag.ListLocation = new SelectList(items, "Value", "Text");
             // ViewBag.CategoryList = new SelectList(cat.GetCategoryList(), "CategoryId", "CategoryName");
@@ -182,14 +187,38 @@ namespace SmartActS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "SupplyId,SupplyCode,SupplyName,LocationId,LngTitude,Latitude,CategoryId,Address,Email,MobiPhone,Phone,Website,RankId,IsStatus,UserId")] Supply supply,FormCollection form)
         {
+
+            //if (supply.CategoryId != null)
+            //{
+            //    var selected = (from sub in db.Categories
+            //                    where sub.CategoryId == supply.CategoryId
+            //                    select sub.CategoryId).First();
+            //    ViewBag.ListCategory = new SelectList(db.Categories, "CategoryId", "CategoryName", selected);
+            //}
+            //else
+            //{
+            //    ViewBag.ListCategory = new SelectList(db.Categories, "CategoryId", "CategoryName", 1);
+            //}
+            //if (supply.LocationId != null)
+            //{
+            //    var selected = (from sub in db.Locations
+            //                    where sub.LocationId == supply.LocationId
+            //                    select sub.LocationId).First();
+            //    ViewBag.ListLocation = new SelectList(db.Locations, "LocationId", "LocationName", selected);
+            //}
+            //else
+            //{
+            //    ViewBag.ListLocation = new SelectList(db.Locations, "LocationId", "LocationName", 1);
+            //}
             if (ModelState.IsValid)
             {
+               
                 db.Entry(supply).State = EntityState.Modified;
                 int cat_id = -1;
-                //  category.CategoryId = Convert.ToInt32(FormCollection["Select Category"]);
+                // category.CategoryId = Convert.ToInt32(FormCollection["Select Category"]);
                 try
                 {
-                    cat_id = int.Parse(form["ddCategory"].ToString());
+                    cat_id = int.Parse(form["ddCategory"].ToString());//ddCategory
                 }
                 catch (Exception)
                 {
@@ -203,7 +232,7 @@ namespace SmartActS.Controllers
                 //  category.CategoryId = Convert.ToInt32(FormCollection["Select Category"]);
                 try
                 {
-                    locat_id = int.Parse(form["ddLocation"].ToString());
+                    locat_id = int.Parse(form["ddLocation"].ToString());//ddLocation
                 }
                 catch (Exception)
                 {
@@ -212,9 +241,11 @@ namespace SmartActS.Controllers
                 }
                 if (locat_id != -1)
                     supply.LocationId = locat_id;
-                
+
                 db.SaveChanges();
+                
                 return RedirectToAction("Index");
+                
             }
             return View(supply);
         }
