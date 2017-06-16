@@ -18,10 +18,11 @@ namespace SmartActS.DataModels
 
         public int SupplyId { get; set; }
 
-        public DateTime? ResponseTime { get; set; }
+            [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm:ss}")]
+            public DateTime? ResponseTime { get; set; }
 
         public int? Status { get; set; }
-
+        [DisplayFormat(DataFormatString = "{0:C0}")]
         [Column(TypeName = "money")]
         public decimal? PriceSuggest { get; set; }
 

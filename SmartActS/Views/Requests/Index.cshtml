@@ -2,10 +2,10 @@
 @using SmartActS.DataModels
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout_Request.cshtml";
+    Layout = "~/Views/Shared/_Layout_admin.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Request</h2>
 
 <p>
     @if (ViewBag.IsCustomer=="yes")
@@ -14,7 +14,7 @@
     }
    
 </p>
-<table id ="request" class="table table-striped table-bordered" cellpadding="0" width="100%">
+<table id ="request" class="table table-striped table-bordered table-hover" cellpadding="0" >
     <tr>
 
         <th>
@@ -54,7 +54,7 @@
 
     @foreach (var item in Model)
     {
-        <tr>
+        <tr class="table-success">
             <td>
                 @Html.DisplayFor(modelItem => item.RequestCode)
             </td>
@@ -69,14 +69,22 @@
             </td>
             <td>
 
-                @if (item.Status == 0)
+                @if (item.Status ==(int)Common.eRequest.Pending)
                 {
                     <p>Pending</p>
                 }
-                else
-                {    <p>Approved</p> }
-
-
+                @if (item.Status == (int)Common.eRequest.Approved)
+                {
+                    <p>Approved</p>
+                }
+                @if (item.Status == (int)Common.eRequest.Confirmed)
+                {
+                    <p>Confirmed</p>
+                }
+                @if (item.Status == (int)Common.eRequest.Expired)
+                {
+                    <p>Expired</p>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedDate)

@@ -20,13 +20,15 @@ namespace SmartActS.DataModels
 
         public int? Status { get; set; }
 
+        
+        [DisplayFormat(DataFormatString="{0:dd/MM/yyyy hh:mm:ss}")]
         public DateTime? CreatedDate { get; set; }
 
         public int? DurationExpired { get; set; }
-
+        [DisplayFormat(DataFormatString = "{0:C0}")]
         [Column(TypeName = "money")]
         public decimal? FromBudget { get; set; }
-
+        [DisplayFormat(DataFormatString = "{0:C0}")]
         [Column(TypeName = "money")]
         public decimal? ToBudget { get; set; }
 

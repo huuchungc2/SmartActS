@@ -17,13 +17,26 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-              
+             
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("My Request", "Index", "Requests")</li>
-                    <li>@Html.ActionLink("My Response", "Index", "Responses")</li>
-                    
+                    @if (ViewBag.IsAdmin == "yes") { 
+                    <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
+                    <li>@Html.ActionLink("Request", "Index", "Requests")</li>
+                    <li>@Html.ActionLink("Responses", "Index", "Responses")</li>
+                    <li>@Html.ActionLink("Ranks", "Index", "Ranks")</li>
+                    <li>@Html.ActionLink("Locations", "Index", "Locations")</li>
+                    <li>@Html.ActionLink("Categories", "Index", "Categories")</li>
+                    <li>@Html.ActionLink("Customers", "Index", "Customers")</li>
+                    <li>@Html.ActionLink("Supplie", "Index", "Supplies")</li>
+
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Request", "Index", "Requests")</li>
+                        <li>@Html.ActionLink("Responses", "Index", "Responses")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -33,7 +46,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year -  Smart Auction Service</p>
+            <p>&copy; @DateTime.Now.Year - Smart Auction Service</p>
         </footer>
     </div>
 

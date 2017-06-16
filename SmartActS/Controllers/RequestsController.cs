@@ -197,7 +197,7 @@ namespace SmartActS.Controllers
                 var userId = User.Identity.GetUserId();
                 var customer = db.Customers.Where(m => m.UserId == userId).First();
 
-                request.Status = 0;// 0 pendding, 1 approval, 2 expired
+                request.Status =(int) Common.eRequest.Pending;
                 request.CustomerId = customer.CustomerId;
                 request.DurationExpired = durat_ex;
                 db.Requests.Add(request);

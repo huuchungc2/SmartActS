@@ -29,14 +29,22 @@ namespace SmartActS.Controllers
             var roles = UserManager.GetRoles(User.Identity.GetUserId());
             var roleName = roles.First();
             var userid = User.Identity.GetUserId();
+            ViewBag.IsAdmin = "no";
+            ViewBag.IsCustomer = "no";
+            ViewBag.IsSupply = "no";
             switch (roleName)
             {
 
                 case "Customer":
+                    ViewBag.IsCustomer = "yes";
                     var customer = db.Customers.Where(m => m.UserId == userid).First();
                     return View(db.Customers.Where(m => m.CustomerId == customer.CustomerId).ToList());
                 default:
-                    return View(db.Customers.ToList());
+                    {
+                        ViewBag.IsAdmin = "yes";
+                        return View(db.Customers.ToList());
+                    }
+                 
                // default: return RedirectToAction("index", "Manage");
             }
         }

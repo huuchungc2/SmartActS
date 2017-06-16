@@ -24,31 +24,29 @@ namespace SmartActS.Controllers
         public ActionResult Index()
         {
 
-            //// all request of current user
-            //var userId = User.Identity.GetUserId();
-            //var supply = db.Supplies.Where(m => m.UserId == userId).First();
-
-            //return View(db.Responses.Where(m => m.SupplyId == supply.SupplyId).ToList());
-            //  return View(db.Responses.ToList());
-            //ViewBag.ListLocaton = db.Locations.ToList();
-            //ViewBag.ListCategory = db.Locations.ToList();
+          
             var roles = UserManager.GetRoles(User.Identity.GetUserId());
             var roleName = roles.First();
             var userId = User.Identity.GetUserId();
+            ViewBag.IsAdmin = "no";
+            ViewBag.IsCustomer = "no";
+            ViewBag.IsSupply = "no";
             switch (roleName)
             {
                 case "Customer":
                     var customer = db.Customers.Where(m => m.UserId ==userId).First();
                     var request = db.Requests.Where(m => m.CustomerId == customer.CustomerId);
                     var requestIds = (from d in request select d.RequestId);
+                    ViewBag.IsCustomer = "yes";
 
-
-                    return View(db.Responses.Where(m => requestIds.Contains(m.RequestId)));
+                    return View(db.Responses.Where(m => requestIds.Contains(m.RequestId)).OrderByDescending(m=>m.PriceSuggest).OrderByDescending(m=>m.ResponseTime));
 
                 case "Supply":
                     var supply = db.Supplies.Where(m => m.UserId == userId).First();
+                    ViewBag.IsSupply = "yes";
                     return View(db.Responses.Where(m => m.SupplyId == supply.SupplyId).ToList().OrderByDescending(m => m.ResponseTime));
                 case "Admin":
+                    ViewBag.IsAdmin = "yes";
                     return View(db.Responses.ToList());
                 default: return RedirectToAction("index", "Manage");
             }
@@ -89,31 +87,52 @@ namespace SmartActS.Controllers
         public ActionResult Create(int ? id)
         {
             Request request = db.Requests.Find(id);
-            //if (request == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //if (request.CategoryId > 0)
-            //{
-            //    var selected = (from sub in db.Categories
-            //                    where sub.CategoryId == request.CategoryId
-            //                    select sub.CategoryId).First();
-            //    ViewBag.ListCategory = new SelectList(db.Categories, "CategoryId", "CategoryName", selected);
-            //    //ViewData["ListCategory"] = new SelectList(db.Categories, "CategoryId", "CategoryName", selected);
-            //}
-            //else
-            //{
-            //    ViewBag.ListCategory = new SelectList(db.Categories.ToList(), "CategoryId", "CategoryName");
-            //    // ViewData["ListCategory"] = new SelectList(db.Categories, "CategoryId", "CategoryName");
-            //}
+            if (request != null) { 
             Response objResponse = new DataModels.Response();
             objResponse.categoryId = request.CategoryId;
             objResponse.RequestId = request.RequestId;
+                objResponse.Status =(int) Common.eResponse.Pending;
             // Get current 
             var userid = User.Identity.GetUserId();
             objResponse.SupplyId = db.Supplies.Where(m => m.UserId == userid).First().SupplyId;
             
             return View(objResponse);
+            }
+            return View();
+        }
+
+     
+        public ActionResult Confirm(int? id)
+        {
+            Response response = db.Responses.Find(id);
+            if (response != null)
+            {
+                // get all response of this request will be rejected
+                foreach (var item in db.Responses.Where(m => m.RequestId == response.RequestId))
+                {
+                    item.Status = (int)Common.eResponse.Rejected;
+                    db.Entry(item).State = EntityState.Modified;
+                   // db.SaveChanges();
+                }
+                // update status only this reponse is confirm
+                 response.Status = (int)Common.eResponse.Confirmed;
+                 db.Entry(response).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+      
+        public ActionResult Reject(int? id)
+        {
+            Response response = db.Responses.Find(id);
+            if (response != null)
+            {
+               // update status only this reponse is confirm
+                response.Status = (int)Common.eResponse.Rejected;
+                db.Entry(response).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
 
         // POST: Responses/Create

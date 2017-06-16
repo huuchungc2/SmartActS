@@ -7,19 +7,52 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SmartActS.DataModels;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace SmartActS.Controllers
 {
     public class LocationsController : Controller
     {
         private SmartActSModel db = new SmartActSModel();
-
+        private ApplicationUserManager _userManager;
         // GET: Locations
         public ActionResult Index()
         {
-            return View(db.Locations.ToList());
-        }
+            var roles = UserManager.GetRoles(User.Identity.GetUserId());
+            var roleName = roles.First();
+            var userid = User.Identity.GetUserId();
+            ViewBag.IsAdmin = "no";
+            ViewBag.IsCustomer = "no";
+            ViewBag.IsSupply = "no";
+            switch (roleName)
+            {
 
+                case "Customer":
+                    ViewBag.IsCustomer = "yes";
+
+                    return View(db.Locations.ToList());
+                default:
+                    {
+                        ViewBag.IsAdmin = "yes";
+                        return View(db.Locations.ToList());
+                    }
+
+                    // default: return RedirectToAction("index", "Manage");
+            }
+           
+        }
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         // GET: Locations/Details/5
         public ActionResult Details(int? id)
         {
