@@ -34,16 +34,25 @@ namespace SmartActS.Controllers
             var roles = UserManager.GetRoles(User.Identity.GetUserId());
             var roleName = roles.First();
             var userid = User.Identity.GetUserId();
+            ViewBag.IsAdmin = "no";
+            ViewBag.IsCustomer = "no";
+            ViewBag.IsSupply = "no";
             switch (roleName)
             {
                 case "Customer":
-                  
-                    var customer = db.Customers.Where(m => m.UserId == userid).First();
+                   
+                    ViewBag.IsCustomer = "yes";
+                     var customer = db.Customers.Where(m => m.UserId == userid).First();
                     return View(db.Requests.Where(m => m.CustomerId == customer.CustomerId).ToList().OrderByDescending(m => m.CreatedDate));
+
                 case "Supply":
+                    ViewBag.IsSupply = "yes";
                     var supply = db.Supplies.Where(m => m.UserId == userid).First();
                     return View(db.Requests.Where(m => m.CategoryId == supply.CategoryId).ToList().OrderByDescending(m=>m.CreatedDate));
+                   
+                   
                 case "Admin":
+                    ViewBag.IsAdmin = "yes";
                     return View(db.Requests.ToList());
                 default: return RedirectToAction("index", "Manage");
             }
@@ -202,11 +211,42 @@ namespace SmartActS.Controllers
         // GET: Requests/Edit/5
         public ActionResult Edit(int? id)
         {
+            Request request = db.Requests.Find(id);
+            if (request == null)
+            {
+                return HttpNotFound();
+            }
+            if (request.CategoryId>0)
+            {
+                var selected = (from sub in db.Categories
+                                where sub.CategoryId == request.CategoryId
+                                select sub.CategoryId).First();
+                ViewBag.ListCategory = new SelectList(db.Categories, "CategoryId", "CategoryName",selected);
+                //ViewData["ListCategory"] = new SelectList(db.Categories, "CategoryId", "CategoryName", selected);
+            }
+            else
+            {
+                ViewBag.ListCategory = new SelectList(db.Categories.ToList(), "CategoryId", "CategoryName");
+               // ViewData["ListCategory"] = new SelectList(db.Categories, "CategoryId", "CategoryName");
+            }
+            if (request.LocationSupplyId != null)
+            {
+                var selected = (from sub in db.Locations
+                                where sub.LocationId == request.LocationSupplyId
+                                select sub.LocationId).First();
+                  ViewBag.ListLocation = new SelectList(db.Locations.ToList(), "LocationId", "LocationName",selected);
+               // ViewData["ListLocation"] = new SelectList(db.Locations.ToList(), "LocationId", "LocationName", selected);
+            }
+            else
+            {
+                //ViewData["ListLocation"] = new SelectList(db.Locations.ToList(), "LocationId", "LocationName");
+                ViewBag.ListLocation = new SelectList(db.Locations, "LocationId", "LocationName");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Request request = db.Requests.Find(id);
+           // Request request = db.Requests.Find(id);
             if (request == null)
             {
                 return HttpNotFound();
@@ -219,10 +259,38 @@ namespace SmartActS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RequestId,RequestCode,CategoryId,CustomerId,Status,CreatedDate,DurationExpired,FromBudget,ToBudget,RequireResponse,ShippingAddress,LocationSupplyId,Description,BestTime,BestSupply,BestPrice,RequestTitle,FileAttrachId")] Request request)
+        public ActionResult Edit([Bind(Include = "RequestId,RequestCode,CategoryId,CustomerId,Status,CreatedDate,DurationExpired,FromBudget,ToBudget,RequireResponse,ShippingAddress,LocationSupplyId,Description,BestTime,BestSupply,BestPrice,RequestTitle,FileAttrachId")] Request request, System.Web.Mvc.FormCollection form)
         {
             if (ModelState.IsValid)
             {
+                int cat_id = -1;
+                //  category.CategoryId = Convert.ToInt32(FormCollection["Select Category"]);
+                try
+                {
+                    cat_id = int.Parse(form["ddCategory"].ToString());
+                }
+                catch (Exception)
+                {
+
+                    cat_id = -1;
+                }
+                if (cat_id != -1)
+                    request.CategoryId = cat_id;
+                int locat_id = -1;
+
+                //  category.CategoryId = Convert.ToInt32(FormCollection["Select Category"]);
+                try
+                {
+                    locat_id = int.Parse(form["ddLocation"].ToString());
+                }
+                catch (Exception)
+                {
+
+                    locat_id = -1;
+                }
+                if (locat_id != -1)
+                    request.LocationSupplyId = locat_id;
+                
                 db.Entry(request).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

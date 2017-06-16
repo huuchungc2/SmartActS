@@ -34,10 +34,11 @@ namespace SmartActS.Controllers
             //ViewBag.ListCategory = db.Locations.ToList();
             var roles = UserManager.GetRoles(User.Identity.GetUserId());
             var roleName = roles.First();
+            var userId = User.Identity.GetUserId();
             switch (roleName)
             {
                 case "Customer":
-                    var customer = db.Customers.Where(m => m.UserId == User.Identity.GetUserId()).First();
+                    var customer = db.Customers.Where(m => m.UserId ==userId).First();
                     var request = db.Requests.Where(m => m.CustomerId == customer.CustomerId);
                     var requestIds = (from d in request select d.RequestId);
 
@@ -45,7 +46,7 @@ namespace SmartActS.Controllers
                     return View(db.Responses.Where(m => requestIds.Contains(m.RequestId)));
 
                 case "Supply":
-                    var supply = db.Supplies.Where(m => m.UserId == User.Identity.GetUserId()).First();
+                    var supply = db.Supplies.Where(m => m.UserId == userId).First();
                     return View(db.Responses.Where(m => m.SupplyId == supply.SupplyId).ToList().OrderByDescending(m => m.ResponseTime));
                 case "Admin":
                     return View(db.Responses.ToList());
@@ -79,10 +80,40 @@ namespace SmartActS.Controllers
             return View(response);
         }
 
+        //// GET: Responses/Create
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
         // GET: Responses/Create
-        public ActionResult Create()
+        public ActionResult Create(int ? id)
         {
-            return View();
+            Request request = db.Requests.Find(id);
+            //if (request == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //if (request.CategoryId > 0)
+            //{
+            //    var selected = (from sub in db.Categories
+            //                    where sub.CategoryId == request.CategoryId
+            //                    select sub.CategoryId).First();
+            //    ViewBag.ListCategory = new SelectList(db.Categories, "CategoryId", "CategoryName", selected);
+            //    //ViewData["ListCategory"] = new SelectList(db.Categories, "CategoryId", "CategoryName", selected);
+            //}
+            //else
+            //{
+            //    ViewBag.ListCategory = new SelectList(db.Categories.ToList(), "CategoryId", "CategoryName");
+            //    // ViewData["ListCategory"] = new SelectList(db.Categories, "CategoryId", "CategoryName");
+            //}
+            Response objResponse = new DataModels.Response();
+            objResponse.categoryId = request.CategoryId;
+            objResponse.RequestId = request.RequestId;
+            // Get current 
+            var userid = User.Identity.GetUserId();
+            objResponse.SupplyId = db.Supplies.Where(m => m.UserId == userid).First().SupplyId;
+            
+            return View(objResponse);
         }
 
         // POST: Responses/Create
@@ -97,6 +128,7 @@ namespace SmartActS.Controllers
                 var userId = User.Identity.GetUserId();
                 var supply = db.Supplies.Where(m => m.UserId == userId).First();
                 response.SupplyId = supply.SupplyId;
+                response.ResponseTime = DateTime.Now;
                 db.Responses.Add(response);
                 db.SaveChanges();
                 return RedirectToAction("Index");

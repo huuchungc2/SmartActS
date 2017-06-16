@@ -10,7 +10,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-striped table-bordered" cellpadding="0" width="100%">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.LocationCode)
@@ -19,7 +19,7 @@
             @Html.DisplayNameFor(model => model.LocationName)
         </th>
         <th>
-           Parent
+            Parent
         </th>
         <th>
             @Html.DisplayNameFor(model => model.LngTitude)
@@ -30,29 +30,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.LocationCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LocationName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => modelItem.ToList().Find(m=>m.LocationId ==item.ParentId).LocationName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LngTitude)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LatTitude)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.LocationId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.LocationId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.LocationId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocationCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.ToList().Find(m => m.LocationId == item.ParentId).LocationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LngTitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LatTitude)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.LocationId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.LocationId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.LocationId })
+            </td>
+        </tr>
+    }
 
 </table>

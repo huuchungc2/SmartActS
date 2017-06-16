@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<SmartActS.DataModels.Response>
+ @using SmartActS.DataModels;
 
 @{
     ViewBag.Title = "Index";
@@ -10,35 +11,36 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-striped table-bordered" cellpadding="0" width="100%">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ResponseTitle)
+            @Html.DisplayName("Title")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RequestId)
+            @Html.DisplayName("Request Tile")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SupplyId)
+            @Html.DisplayName("Supply")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ResponseTime)
+            @Html.DisplayName("Response Time")
+        </th>
+        <th>
+            @Html.DisplayName("Category")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Status)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PriceSuggest)
+            @Html.DisplayName("Price")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FileAttachId)
+            @Html.DisplayName("Attach File")
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.categoryId)
-        </th>
+       
         <th></th>
     </tr>
 
@@ -48,13 +50,19 @@
             @Html.DisplayFor(modelItem => item.ResponseTitle)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.RequestId)
+           
+            @Html.DisplayFor(modelItem => new SmartActSModel().Requests.Find(item.RequestId).RequestTitle)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SupplyId)
+         
+            @Html.DisplayFor(modelItem => new SmartActSModel().Supplies.Find(item.SupplyId).SupplyName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ResponseTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => new SmartActSModel().Categories.Find(item.categoryId).CategoryName)
+       
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Status)
@@ -68,9 +76,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.FileAttachId)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.categoryId)
-        </td>
+       
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ResponseId }) |
             @Html.ActionLink("Details", "Details", new { id=item.ResponseId }) |
