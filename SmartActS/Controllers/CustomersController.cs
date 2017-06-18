@@ -86,10 +86,24 @@ namespace SmartActS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CustomerId,CustomerCode,CustomerName,Email,MobiPhone,Address,LngTitude,LatTitude,LocationId,IsStatus,UserId")] Customer customer)
+        public ActionResult Create([Bind(Include = "CustomerId,CustomerCode,CustomerName,Email,MobiPhone,Address,LngTitude,LatTitude,LocationId,IsStatus,UserId")] Customer customer, FormCollection form)
         {
             if (ModelState.IsValid)
             {
+                int locat_id = -1;
+
+                //  category.CategoryId = Convert.ToInt32(FormCollection["Select Category"]);
+                try
+                {
+                    locat_id = int.Parse(form["ddLocation"].ToString());//ddLocation
+                }
+                catch (Exception)
+                {
+
+                    locat_id = -1;
+                }
+                if (locat_id != -1)
+                    customer.LocationId = locat_id;
                 db.Customers.Add(customer);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -110,6 +124,19 @@ namespace SmartActS.Controllers
             {
                 return HttpNotFound();
             }
+            if (customer.LocationId != null)
+            {
+                var selected = (from sub in db.Locations
+                                where sub.LocationId == customer.LocationId
+                                select sub.LocationId).First();
+                //  ViewBag.ListLocation = new SelectList(db.Locations.ToList(), "LocationId", "LocationName",selected);
+                ViewData["ListLocation"] = new SelectList(db.Locations.ToList(), "LocationId", "LocationName", selected);
+            }
+            else
+            {
+                ViewData["ListLocation"] = new SelectList(db.Locations.ToList(), "LocationId", "LocationName");
+                //ViewBag.ListLocation = new SelectList(db.Locations, "LocationId", "LocationName");
+            }
             return View(customer);
         }
 
@@ -118,10 +145,24 @@ namespace SmartActS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CustomerId,CustomerCode,CustomerName,Email,MobiPhone,Address,LngTitude,LatTitude,LocationId,IsStatus,UserId")] Customer customer)
+        public ActionResult Edit([Bind(Include = "CustomerId,CustomerCode,CustomerName,Email,MobiPhone,Address,LngTitude,LatTitude,LocationId,IsStatus,UserId")] Customer customer,FormCollection form)
         {
             if (ModelState.IsValid)
             {
+                int locat_id = -1;
+
+                //  category.CategoryId = Convert.ToInt32(FormCollection["Select Category"]);
+                try
+                {
+                    locat_id = int.Parse(form["ddLocation"].ToString());//ddLocation
+                }
+                catch (Exception)
+                {
+
+                    locat_id = -1;
+                }
+                if (locat_id != -1)
+                    customer.LocationId = locat_id;
                 db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

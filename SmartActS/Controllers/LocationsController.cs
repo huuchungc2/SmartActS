@@ -19,7 +19,8 @@ namespace SmartActS.Controllers
         // GET: Locations
         public ActionResult Index()
         {
-            var roles = UserManager.GetRoles(User.Identity.GetUserId());
+            var userId = User.Identity.GetUserId();
+            var roles = UserManager.GetRoles(userId);
             var roleName = roles.First();
             var userid = User.Identity.GetUserId();
             ViewBag.IsAdmin = "no";

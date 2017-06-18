@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace SmartActS.Controllers
 {
-    [Authorize(Roles = "Supply")]
+    [Authorize]
     public class SuppliesController : Controller
     {
         private ApplicationUserManager _userManager;
@@ -165,9 +165,21 @@ namespace SmartActS.Controllers
                 ViewData["ListLocation"]= new SelectList(db.Locations.ToList(), "LocationId", "LocationName");
                 //ViewBag.ListLocation = new SelectList(db.Locations, "LocationId", "LocationName");
             }
-           // ViewBag.ListLocation = new SelectList(items, "Value", "Text");
-            // ViewBag.CategoryList = new SelectList(cat.GetCategoryList(), "CategoryId", "CategoryName");
-            //  ViewBag.ListCategory = new SelectList(db.Categories, "Value", "Text", selected);
+
+            if (supply.LocationId != null)
+            {
+                var selected = (from sub in db.Ranks
+                                where sub.RankId == supply.RankId
+                                select sub.RankId).First();
+                //  ViewBag.ListLocation = new SelectList(db.Locations.ToList(), "LocationId", "LocationName",selected);
+                ViewData["ListRank"] = new SelectList(db.Ranks.ToList(), "RankId", "RankName", selected);
+            }
+            else
+            {
+                ViewData["ListRank"] = new SelectList(db.Locations.ToList(), "RankId", "RankName");
+                //ViewBag.ListLocation = new SelectList(db.Locations, "LocationId", "LocationName");
+            }
+            
 
             if (id == null)
             {
@@ -239,8 +251,19 @@ namespace SmartActS.Controllers
 
                     locat_id = -1;
                 }
-                if (locat_id != -1)
-                    supply.LocationId = locat_id;
+
+                int rank_id = -1;
+                try
+                {
+                    rank_id = int.Parse(form["ddRank"].ToString());//ddLocation
+                }
+                catch (Exception)
+                {
+
+                    rank_id = -1;
+                }
+                if (rank_id != -1)
+                    supply.RankId = rank_id;
 
                 db.SaveChanges();
                 

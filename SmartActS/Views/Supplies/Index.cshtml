@@ -2,7 +2,7 @@
 @using SmartActS.DataModels
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout_admin.cshtml";
 }
 
 <h2>Index</h2>
@@ -41,7 +41,7 @@
             @Html.DisplayNameFor(model => model.Website)
         </th>
         <th>
-            @Html.DisplayName("Rank")
+             @Html.DisplayName("Rank")
         </th>
         <th>
             @Html.DisplayName("Status")
@@ -79,7 +79,7 @@
             @Html.DisplayFor(modelItem => item.Website)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.RankId)
+            @Html.DisplayFor(modelItem => new SmartActSModel().Ranks.Find(item.RankId).RankName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.IsStatus)

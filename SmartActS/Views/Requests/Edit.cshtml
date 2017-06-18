@@ -19,14 +19,14 @@
         @Html.HiddenFor(model => model.RequestId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.RequestCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Code", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.RequestCode, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.RequestCode, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.RequestTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Title", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.RequestTitle, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.RequestTitle, "", new { @class = "text-danger" })
@@ -35,14 +35,14 @@
         <div class="form-group">
             @Html.Label("Category", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("ddCategory", ViewBag.ListCategory as SelectList, "Select Category") 
+                @Html.DropDownList("ddCategory", ViewBag.ListCategory as SelectList) 
             </div>
         </div>
 
         <div class="form-group">
             @Html.Label("Location's Supply", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("ddLocation", ViewBag.ListLocation as SelectList, "Select Location")
+                @Html.DropDownList("ddLocation", ViewBag.ListLocation as SelectList)
             </div>
         </div>
         <div class="form-group">
@@ -54,25 +54,26 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.HiddenFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.CreatedDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CreatedDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.CreatedDate, new { disabled = "disabled", @readonly = "readonly", htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CreatedDate, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DurationExpired, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Duration", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DurationExpired, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.DurationExpired, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DurationExpired, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -113,7 +114,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -151,9 +152,9 @@
      
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FileAttrachId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.FileAttrachId, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FileAttrachId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.HiddenFor(model => model.FileAttrachId, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FileAttrachId, "", new { @class = "text-danger" })
             </div>
         </div>

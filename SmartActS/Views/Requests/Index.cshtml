@@ -42,72 +42,67 @@
             @Html.DisplayName("Duration")
 
         </th>
-
-
-
-
-
-
-
+        
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr class="table-success">
+        
+            <tr class="active">
+         <td>
+            @Html.DisplayFor(modelItem => item.RequestCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => new SmartActSModel().Categories.Find(item.CategoryId).CategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => new SmartActSModel().Locations.Find(item.LocationSupplyId).LocationName)
+        </td>
+        <td>
+
+            @if (item.Status == (int)Common.eRequest.Pending)
+            {
+                <p>Pending</p>
+            }
+            @if (item.Status == (int)Common.eRequest.Approved)
+            {
+                <p>Approved</p>
+            }
+            @if (item.Status == (int)Common.eRequest.Confirmed)
+            {
+                <p>Confirmed</p>
+            }
+            @if (item.Status == (int)Common.eRequest.Expired)
+            {
+                <p>Expired</p>
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DurationExpired) hours
+        </td>
+        @if (ViewBag.IsCustomer == "yes")
+        {
             <td>
-                @Html.DisplayFor(modelItem => item.RequestCode)
+                @Html.ActionLink("Edit", "Edit", new { id = item.RequestId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.RequestId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.RequestId })
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequestTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => new SmartActSModel().Categories.Find(item.CategoryId).CategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => new SmartActSModel().Locations.Find(item.LocationSupplyId).LocationName)
-            </td>
+        }
+        @if (ViewBag.IsSupply == "yes")
+        {
             <td>
 
-                @if (item.Status ==(int)Common.eRequest.Pending)
-                {
-                    <p>Pending</p>
-                }
-                @if (item.Status == (int)Common.eRequest.Approved)
-                {
-                    <p>Approved</p>
-                }
-                @if (item.Status == (int)Common.eRequest.Confirmed)
-                {
-                    <p>Confirmed</p>
-                }
-                @if (item.Status == (int)Common.eRequest.Expired)
-                {
-                    <p>Expired</p>
-                }
+                @Html.ActionLink("Create Response", "Create", "Responses", new { id = item.RequestId }, null)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DurationExpired) hours
-            </td>
-            @if (ViewBag.IsCustomer == "yes")
-            {
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.RequestId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.RequestId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.RequestId })
-                </td>
-            }
-            @if (ViewBag.IsSupply == "yes")
-            {
-                <td>
-
-                    @Html.ActionLink("Create Response", "Create", "Responses", new { id = item.RequestId }, null)
-                </td>
-            }
-        </tr>
+        }
+    </tr>
     }
 
 </table>

@@ -25,5 +25,21 @@ namespace SmartActS.DataModels
             Closed =4
 
         }
+        public enum eCustomer
+        {
+            Pending = 0,
+            Actived = 1,
+            Closed = 2,
+          
+
+        }
+        public enum eSupply
+        {
+            Pending = 0,
+            Actived = 1,
+            Closed = 2,
+
+
+        }
     }
 }

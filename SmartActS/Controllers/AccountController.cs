@@ -193,7 +193,7 @@ namespace SmartActS.Controllers
                         Customer objCustomer = new DataModels.Customer();
                         objCustomer.Email = model.Email;
                         objCustomer.UserId = user.Id;
-                        objCustomer.IsStatus = 1;// active
+                        objCustomer.IsStatus = (int)Common.eCustomer.Actived;
                         
                         db.Customers.Add(objCustomer);
                         db.SaveChanges();
@@ -203,7 +203,7 @@ namespace SmartActS.Controllers
                         Supply objSupply = new DataModels.Supply();
                         objSupply.Email = model.Email;
                         objSupply.UserId = user.Id;
-                        objSupply.IsStatus = 1;// active
+                        objSupply.IsStatus = (int)Common.eSupply.Actived;
                         objSupply.CategoryId = 1;
                         db.Supplies.Add(objSupply);
                         db.SaveChanges();
@@ -216,8 +216,8 @@ namespace SmartActS.Controllers
                     //    return RedirectToAction("Index", "Responses");
                     return RedirectToAction("index", "Requests");
                 }
-                //ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
-                //                          .ToList(), "Name", "Name",1);
+                ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
+                                          .ToList(), "Name", "Name");
                 AddErrors(result);
             }
 
