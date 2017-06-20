@@ -188,6 +188,7 @@ namespace SmartActS.Controllers
                     {
                         durat_ex = 24 * int.Parse(request.DurationExpired.ToString());
                     }
+                    else durat_ex =  int.Parse(request.DurationExpired.ToString());
                 }
                 catch (Exception)
                 {
